@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Утренний свет — кофейня рядом с тобой</title>
+    <!-- Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            color: #2e1b0e;
+            background: #fdf6ec;
+            line-height: 1.6;
+        }
+
+        /* Переменные для единообразия */
+        :root {
+            --primary-dark: #3e2723;
+            --primary: #5d4037;
+            --accent: #ffb74d;
+            --accent-light: #ffe0b2;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.02);
+            --shadow-hover: 0 20px 30px -10px rgba(93, 64, 55, 0.15);
+            --radius: 20px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Плавное появление секций */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section {
+            max-width: 1100px;
+            margin: 70px auto;
+            padding: 0 24px;
+            animation: fadeUp 0.8s ease-out forwards;
+        }
+
+        /* Хедер с эффектом параллакса и градиентом */
+        header {
+            position: relative;
+            background: linear-gradient(145deg, #2e1b0e 0%, #4a2e22 100%);
+            color: #fff;
+            padding: 90px 20px 80px;
+            text-align: center;
+            overflow: hidden;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.3);
+        }
+
+        header::before {
+            content: "\f7b6"; /* иконка кружки Font Awesome */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            font-size: 20rem;
+            opacity: 0.05;
+            bottom: -50px;
+            right: -30px;
+            transform: rotate(15deg);
+            pointer-events: none;
+            color: #fff;
+        }
+
+        header h1 {
+            font-size: clamp(2.5rem, 8vw, 4.2rem);
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #fff8e7, #ffcc80);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            animation: fadeUp 0.6s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        /* Иконка кофе — не подпадает под градиент текста */
+        header h1 .coffee-icon {
+            background: none;
+            -webkit-text-fill-color: #ffcc80;
+            color: #ffcc80;
+            -webkit-background-clip: initial;
+            background-clip: initial;
+            font-size: 0.9em;
+            filter: drop-shadow(0 4px 10px rgba(255, 183, 77, 0.5));
+            transition: var(--transition);
+        }
+
+        header h1:hover .coffee-icon {
+            transform: rotate(-10deg) scale(1.1);
+        }
+
+        header p {
+            font-size: clamp(1.1rem, 4vw, 1.5rem);
+            color: #ffcc80;
+            font-weight: 300;
+            letter-spacing: 2px;
+            animation: fadeUp 0.8s ease-out 0.2s both;
+        }
+
+        /* Навигация — стеклянный эффект */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(62, 39, 35, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px 20px;
+            padding: 14px 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-bottom: 1px solid rgba(255, 204, 128, 0.15);
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 8px 18px;
+            border-radius: 40px;
+            transition: var(--transition);
+            background: transparent;
+            letter-spacing: 0.3px;
+        }
+
+        nav a:hover {
+            background: var(--accent);
+            color: #2e1b0e;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px -6px rgba(255, 183, 77, 0.5);
+        }
+
+        /* Заголовки секций с декоративной линией */
+        h2 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            display: inline-block;
+            margin-bottom: 28px;
+            position: relative;
+            letter-spacing: -0.5px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 70%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), #ffa726, transparent);
+            border-radius: 4px;
+        }
+
+        .about p {
+            font-size: 1.15rem;
+            color: #4a2e22;
+            margin-bottom: 16px;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 16px 22px;
+            border-radius: var(--radius);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 204, 128, 0.2);
+        }
+
+        .about strong {
+            color: var(--primary-dark);
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffb74d, #ffa726);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Сетка преимуществ */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .feature {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 28px 16px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 204, 128, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            cursor: default;
+        }
+
+        .feature:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--accent);
+        }
+
+        .feature .icon {
+            font-size: 2.4rem;
+            line-height: 1;
+            filter: drop-shadow(0 6px 8px rgba(255, 183, 77, 0.3));
+            transition: var(--transition);
+        }
+
+        .feature:hover .icon {
+            transform: scale(1.15) rotate(3deg);
+        }
+
+        .feature h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        /* Меню — карточки */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 26px;
+        }
+
+        .menu-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 26px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 204, 128, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent), #ffa726);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .menu-card:hover::before {
+            opacity: 1;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .menu-card h3 {
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-card h3 i {
+            color: var(--accent);
+            font-size: 1.3rem;
+        }
+
+        .menu-card ul {
+            list-style: none;
+        }
+
+        .menu-card li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(93, 64, 55, 0.15);
+            font-size: 1.05rem;
+            transition: var(--transition);
+        }
+
+        .menu-card li:hover {
+            padding-left: 8px;
+            border-bottom-color: var(--accent);
+            background: rgba(255, 204, 128, 0.08);
+            border-radius: 8px;
+        }
+
+        .menu-card li span:last-child {
+            font-weight: 700;
+            color: var(--primary-dark);
+            background: var(--accent-light);
+            padding: 3px 12px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+        }
+
+        /* Промо-блоки */
+        .promo {
+            background: linear-gradient(145deg, #ffe0b2, #ffcc80);
+            border-radius: var(--radius);
+            padding: 32px 28px;
+            text-align: center;
+            margin-top: 24px;
+            transition: var(--transition);
+            box-shadow: 0 8px 18px -6px rgba(255, 167, 38, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .promo:hover {
+            transform: scale(1.01);
+            box-shadow: 0 16px 28px -8px rgba(255, 167, 38, 0.4);
+        }
+
+        .promo h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2e1b0e;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .promo p {
+            font-size: 1.15rem;
+            color: #3e2723;
+            font-weight: 500;
+        }
+
+        /* Контакты */
+        .contacts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 26px 22px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 204, 128, 0.2);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--accent);
+        }
+
+        .contact-item h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .contact-item p {
+            font-size: 1.05rem;
+            color: #4a2e22;
+        }
+
+        .contact-item i {
+            color: var(--accent);
+            font-size: 1.6rem;
+            margin-bottom: 4px;
+        }
+
+        /* Футер */
+        footer {
+            background: var(--primary-dark);
+            color: #ddd;
+            text-align: center;
+            padding: 36px 20px;
+            margin-top: 80px;
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+            font-size: 1rem;
+            position: relative;
+        }
+
+        footer p {
+            margin: 6px 0;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 30px;
+            background: rgba(255, 204, 128, 0.1);
+        }
+
+        footer a:hover {
+            background: var(--accent);
+            color: #2e1b0e;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px -6px rgba(255, 183, 77, 0.4);
+        }
+
+        /* Кнопка "наверх" */
+        .to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent);
+            color: #2e1b0e;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 6px 18px rgba(255, 183, 77, 0.5);
+            transition: var(--transition);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            text-decoration: none;
+        }
+
+        .to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .to-top:hover {
+            background: #ffa726;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 24px rgba(255, 167, 38, 0.6);
+        }
+
+        /* Плавная подсветка активной ссылки */
+        nav a.active {
+            background: var(--accent);
+            color: #2e1b0e;
+        }
+
+        /* Адаптив */
+        @media (max-width: 640px) {
+            header {
+                padding: 60px 16px 50px;
+                border-bottom-left-radius: 30px;
+                border-bottom-right-radius: 30px;
+            }
+            header h1 {
+                gap: 10px;
+                letter-spacing: 2px;
+            }
+            h2 {
+                font-size: 1.8rem;
+            }
+            .feature {
+                padding: 20px 12px;
+            }
+            .menu-card {
+                padding: 20px;
+            }
+            .promo h3 {
+                font-size: 1.4rem;
+            }
+            .to-top {
+                width: 44px;
+                height: 44px;
+                font-size: 1.2rem;
+                bottom: 20px;
+                right: 20px;
+            }
+            nav a {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header id="top">
+    <h1>
+        <i class="fas fa-mug-hot coffee-icon"></i>
+        УТРЕННИЙ СВЕТ
+    </h1>
+    <p>кофейня рядом с тобой</p>
+</header>
+
+<nav>
+    <a href="#about" class="active">О нас</a>
+    <a href="#features">Почему мы</a>
+    <a href="#menu">Меню</a>
+    <a href="#promo">Акции</a>
+    <a href="#contacts">Контакты</a>
+</nav>
+
+<section id="about" class="about">
+    <h2>О нас</h2>
+    <p>«Утренний свет» — это уютная кофейня формата <strong>coffee to go + коворкинг</strong>, расположенная в шаговой доступности от университета. Мы создали место, где можно быстро взять любимый кофе с собой или остаться поработать, поучиться и встретиться с друзьями за чашкой свежеобжаренного кофе.</p>
+    <p>Наша площадь — 45 м², а ежедневный поток в районе вуза превышает 3 000 человек. Мы ориентированы на студентов, преподавателей и офисных работников.</p>
+</section>
+
+<section id="features">
+    <h2>Почему «Утренний свет»?</h2>
+    <div class="features">
+        <div class="feature"><div class="icon">☕</div><h3>Свежеобжаренный кофе</h3></div>
+        <div class="feature"><div class="icon">🍰</div><h3>Вкусные десерты</h3></div>
+        <div class="feature"><div class="icon">📶</div><h3>Бесплатный Wi-Fi</h3></div>
+        <div class="feature"><div class="icon">🔌</div><h3>Розетки для работы</h3></div>
+        <div class="feature"><div class="icon">🛋️</div><h3>Уютная атмосфера</h3></div>
+        <div class="feature"><div class="icon">⚡</div><h3>Быстрое обслуживание</h3></div>
+    </div>
+</section>
+
+<section id="menu">
+    <h2>Наше меню</h2>
+    <div class="menu-grid">
+        <div class="menu-card">
+            <h3><i class="fas fa-mug-hot"></i> Кофе</h3>
+            <ul>
+                <li><span>Эспрессо</span><span>700 ₸</span></li>
+                <li><span>Американо</span><span>800 ₸</span></li>
+                <li><span>Капучино</span><span>1 000 ₸</span></li>
+                <li><span>Латте</span><span>1 100 ₸</span></li>
+                <li><span>Раф</span><span>1 200 ₸</span></li>
+            </ul>
+        </div>
+        <div class="menu-card">
+            <h3><i class="fas fa-cookie-bite"></i> Десерты</h3>
+            <ul>
+                <li><span>Круассан</span><span>800 ₸</span></li>
+                <li><span>Чизкейк</span><span>1 000 ₸</span></li>
+                <li><span>Маффин</span><span>900 ₸</span></li>
+                <li><span>Печенье</span><span>600 ₸</span></li>
+            </ul>
+        </div>
+        <div class="menu-card">
+            <h3><i class="fas fa-glass-whiskey"></i> Сезонные напитки</h3>
+            <ul>
+                <li><span>Какао</span><span>1 000 ₸</span></li>
+                <li><span>Лимонад</span><span>1 400 ₸</span></li>
+                <li><span>Кофе в зёрнах</span><span>2 800–5 000 ₸</span></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section id="promo">
+    <h2>Акции</h2>
+    <div class="promo">
+        <h3>🎓 Скидка 20% по студенческому билету</h3>
+        <p>Покажи студенческий билет и получи скидку на свой любимый напиток!</p>
+    </div>
+    <div class="promo" style="margin-top:20px;">
+        <h3>🎁 6-й кофе — в подарок!</h3>
+        <p>Собирай отметки и получай каждый шестой кофе бесплатно.</p>
+    </div>
+</section>
+
+<section id="contacts">
+    <h2>Контакты</h2>
+    <div class="contacts">
+        <div class="contact-item">
+            <i class="fas fa-map-pin"></i>
+            <h3>📍 Адрес</h3>
+            <p>ул. Университетская, 15<br>(рядом с главным корпусом университета)</p>
+        </div>
+        <div class="contact-item">
+            <i class="fas fa-clock"></i>
+            <h3>🕐 Время работы</h3>
+            <p>Ежедневно, 8:00 – 22:00</p>
+        </div>
+        <div class="contact-item">
+            <i class="fas fa-phone-alt"></i>
+            <h3>📞 Телефон</h3>
+            <p>+7 (777) 123-45-67</p>
+        </div>
+        <div class="contact-item">
+            <i class="fab fa-instagram"></i>
+            <h3>📸 Instagram</h3>
+            <p>@utrenniy_svet</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Кофейня «Утренний свет». Сайт создан в рамках лабораторной работы.</p>
+    <p><a href="#top">Наверх ↑</a></p>
+</footer>
+
+<!-- Кнопка "Наверх" -->
+<a href="#top" class="to-top" id="toTopBtn" aria-label="Наверх">
+    <i class="fas fa-arrow-up"></i>
+</a>
+
+<script>
+    (function() {
+        const toTopBtn = document.getElementById('toTopBtn');
+        const navLinks = document.querySelectorAll('nav a');
+        const sections = document.querySelectorAll('section');
+
+        // Отслеживание скролла
+        window.addEventListener('scroll', () => {
+            // Кнопка "наверх"
+            if (window.scrollY > 500) {
+                toTopBtn.classList.add('visible');
+            } else {
+                toTopBtn.classList.remove('visible');
+            }
+
+            // Подсветка активного пункта меню
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Плавный скролл для всех якорных ссылок
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#top' || href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        history.pushState(null, null, href);
+                    }
+                }
+            });
+        });
+    })();
+</script>
+
+</body>
+</html>
